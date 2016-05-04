@@ -13,11 +13,13 @@ var RobotBuilds = (function(originalRobot) {
     this.name = null; // Holds the user entered name
     this.type = null; // Holds the Robot type (of the three types)
     this.model = null; // Holds the Robot model (of the two models per type)
+    this.description = "Standard Non-Combat Robot";
     this.minHealth = null; // Holds the minimum health possibility for the robot
     this.maxHealth = null; // Holds the maximum health possibility for the robot
     this.health = null; // Holds the actual health for the robot
-    this.armor = null; // Holds the armor value of the robot
-    this.evasion = null; // Holds the evasion value of the robot
+    this.damage = null; // Holds the base damage for the robot
+    this.evasion = null; // Holds the base evasion for the robot
+    this.protection = null; // Holds the base protection for the robot
     this.modification = null; // Holds the modification type
     this.weapon = null; // Holds the weapon type
   };
@@ -27,75 +29,64 @@ var RobotBuilds = (function(originalRobot) {
     this.health  = Math.round(Math.random() * (this.maxHealth - this.minHealth) + this.minHealth);
   };
 
-// Allows the building of the "Avain" robot type
-  originalRobot.Players.Avian = function(playerSelectedObject) {
-
-    this.name = playerSelectedObject.name;
-    this.type = "Avian";
-    this.minHealth = 45;
-    this.model = playerSelectedObject.model;
-
-// Checks to see which model is selected and assigns the maxHealth value
-    switch (this.model) {
-      case "Rotors": 
-        this.maxHealth = 65;
-        break;
-      case "Buoyant": 
-        this.maxHealth = 55;
-        break;
-    }
-
-//Calls the function and sends the lowest health and the model type
-    this.health = this.setHealth(/*this.minHealth, this.maxHealth*/); 
+  originalRobot.Players.Robot.prototype.setModification = function(newModification) {
+    this.modification = newModification;
   };
 
-  originalRobot.Players.Avian.prototype = new originalRobot.Players.Robot();
-
-// Allows the building of the "Legged" robot type
-  originalRobot.Players.Legged = function(playerSelectedObject) {
-
-    this.name = playerSelectedObject.name;
-    this.type = "Legged";
-    this.minHealth = 55;
-    this.model = playerSelectedObject.model;
-
-// Checks to see which model is selected and assigns the maxHealth value
-    switch (this.model) {
-      case "Biped": 
-        this.maxHealth = 65;
-        break;
-      case "Quadruped": 
-        this.maxHealth = 75;
-        break;
-    }
-
-//Calls the function and sends the lowest health and the model type
-    this.health = this.setHealth(/*this.minHealth, this.maxHealth*/); 
+  originalRobot.Players.Robot.prototype.setWeapon = function(newWeapon) {
+    this.weapon = newWeapon;
   };
-  originalRobot.Players.Legged.prototype = new originalRobot.Players.Robot();
 
-// Allows the building of the "Wheeled" robot type
-  originalRobot.Players.Wheeled = function(playerSelectedObject) {
+// This for each loop prototypes each specific robot types contained within the base json file to the base Robot 
+//  property above. This allows the dynamic addtion/removal of Robot Types to the program where only the json file
+//  needs to be changed.
+  originalRobot.buildRobotTypePrototypes = function () {
 
-    this.name = playerSelectedObject.name;
-    this.type = "Wheeled";
-    this.minHealth = 65;
-    this.model = playerSelectedObject.model;
+    let typeData = RobotBuilds.getRobotData().robotTypes;
 
-// Checks to see which model is selected and assigns the maxHealth value
-    switch (this.model) {
-      case "Standard Wheeled": 
-        this.maxHealth = 75;
-        break;
-      case "Spherical Wheeled": 
-        this.maxHealth = 70;
-        break;
-    }
+    $(typeData).each( function(index, categoryValue) {
 
-//Calls the function and sends the lowest health and the model type
-    // this.health = this.setHealth(this.minHealth, this.maxHealth); 
+// These constructor prototypes are going to be sent an object that contains the:
+//  the player name, type and model.
+      originalRobot.Players[categoryValue.type] = function(sentName, sentModel) {
+        this.name = sentName;
+        this.description = categoryValue.description;
+        this.minHealth = categoryValue.minHealth;
+        this.model = sentModel;
+
+        // for (var modelValue in categoryValue.model) {
+        //   console.log(categoryValue.model[modelValue]);
+        //   // if (this.model === model[modelValue])
+        // };
+
+      originalRobot.Players[categoryValue.type].prototype = new originalRobot.Players.Robot();
+
+      };
+    });
   };
-  originalRobot.Players.Wheeled.prototype = new originalRobot.Players.Robot();
+
+// // Allows the building of the "Avain" robot type. It needs to be sent the name of the
+// //  of the type, and the model id. 
+//   originalRobot.Players.Avian = function(playerSelectedObject) {
+
+//     this.name = playerSelectedObject.name;
+//     this.type = "Avian";
+//     this.minHealth = 45;
+//     this.model = playerSelectedObject.model;
+
+
+// // Checks to see which model is selected and assigns the maxHealth value
+//     switch (this.model) {
+//       case "Rotors": 
+//         this.maxHealth = 65;
+//         break;
+//       case "Buoyant": 
+//         this.maxHealth = 55;
+//         break;
+//     }
+//   };
+
+//   originalRobot.Players.Avian.prototype = new originalRobot.Players.Robot();
 
 // Adds objects (i.e. players) to the createdPlayer object for easy access
   originalRobot.setPlayers = function(newlyCreatedPlayer) {
@@ -103,7 +94,7 @@ var RobotBuilds = (function(originalRobot) {
   };
 
 // Returns the created robot players so they are easily accessable
-  originalRobot.getRobotPlayers = function() {
+  originalRobot.getPlayers = function() {
     return createdPlayers;
   };
 

@@ -1,0 +1,123 @@
+{
+  "robotData": {
+    "robotTypes": [{
+      "type": "Avian",
+      "description": "A completely arial-based robot",
+      "minHealth": "45",
+      "model": [{
+        "id": "rotors",
+        "name": "Rotors",
+        "maxHealth": "65"
+        }, {
+        "id": "buoyant",
+        "name": "Buoyant",
+        "maxHealth": "55"
+        }]
+    }, {
+      "type": "Legged",
+      "description": "Land-based, limb driven robot",
+      "minHealth": "55",
+      "model": [{
+        "id": "2legged",
+        "name": "Biped",
+        "maxHealth": "65"
+        }, {
+        "id": "4legged",
+        "name": "Quadruped",
+        "maxHealth": "75"
+        }]
+    }, {
+      "type": "Wheeled",
+      "description": "Land-based, wheel driven robot",
+      "minHealth": "55",
+      "model": [{
+        "id": "stdwheeled",
+        "name": "Standard Wheeled",
+        "maxHealth": "75"
+        }, {
+        "id": "sphwheeled",
+        "name": "Spherical Wheeled",
+        "maxHealth": "70"
+      }]
+    }],
+    "weapons": [{
+      "weaponName": "PPC",
+      "name": "Particle Projection Cannon",
+      "description": "Shoots a blob of highly charged particles that severely damage matter.",
+      "lowDamage": "10",
+      "highDamage": "20"
+    }, {
+      "weaponName": "Laserbeam",
+      "name": "Laser Beam",
+      "description": "Shoots photons with enough energy to partially metal steel",
+      "lowDamage": "5",
+      "highDamage": "30"
+    }, {
+      "weaponName": "Vibroblade",
+      "name": "Vibroblade",
+      "description": "Sword that vibrates at hypersonic speeds and does massive damage but can do damage to wielder",
+      "lowDamage": "30",
+      "highDamage": "40",
+      "specialDamageClass": "1"
+    }, {
+      "weaponName": "Missles",
+      "name": "Missles",
+      "description": "Unleash a flurry of unguided missles on your foe. Just aim and shoot!",
+      "lowDamage": "0",
+      "highDamage": "30"
+    }, {
+      "weaponName": "Espikes",
+      "name": "Explosive Spikes",
+      "description": "Each explosive spike contains a high telsa electromagnet. Unfortunately the magnet electronics have severely decreased the payload.",
+      "lowDamage": "2",
+      "highDamage": "5",
+      "specialDamageClass": "2"
+    }, {
+      "weaponName": "MachineGun",
+      "name": "Machine Gun",
+      "description": "Your basic machine gun. Low damage but can have bursts that deliver extra damage.",
+      "lowDamage": "5",
+      "highDamage": "10",
+      "specialDamageClass": "3"
+    }],
+    "modifications": [{
+      "modName": "Engine",
+      "name": "Engine Mark-2",
+      "description": "State-of-art robot engine increases energy available to all robot systems at the cost of added size and weight.",
+      "modDamage": 30,
+      "modProtection": -10,
+      "modEvasion": -20
+    }, {
+      "modName": "Armor",
+      "name": "Fibroblast Armor Plating",
+      "description": "An add-on to the standard titanium armor by adding an additional layer of interwoven metal polymer fabric at the cost of added weight.",
+      "modProtection": 15,
+      "modEvasion": -10
+    }, {
+      "modName": "EShield",
+      "name": "Energy Shielding",
+      "description": "An electro-static energy shield which reduces the velocity of energy and projectile weapons. Drains energy available to the other robot systems.",
+      "modProtection": 10,
+      "modDamage": -10
+    }, {
+      "modName": "CFrame",
+      "name": "Carbon-Fiber Frame",
+      "description": "Replaces the standard tungsten-carbide robot frame with a lighter Carbon-Fiber frame at the cost durability.",
+      "modProtection": -10,
+      "modEvasion": 10
+    }, {
+      "modName": "AutoRepair",
+      "name": "Automated Repair System",
+      "description": "Nano-bot automated repair system heals the robot as it battles. Taxing on both the powerplant and CPU.",
+      "modProtection": 10,
+      "modEvasion": -10,
+      "modDamage": -10
+    }, {
+      "modName": "Nitrobooster",
+      "name": "Nitrobooster",
+      "description": "A steady flow Nitrous Oxide into the drivetrain gives unparaelled speed but has been known to cause robots to lose control",
+      "modEvasion": 20,
+      "modDamage": -20
+    }]
+  }
+}
