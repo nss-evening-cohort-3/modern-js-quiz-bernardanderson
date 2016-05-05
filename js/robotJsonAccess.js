@@ -14,14 +14,15 @@ var RobotBuilds = (function(originalRobotJsonParse) {
       // Adds the parsed Json data to the "parsedRobotJsonData" private variable 
       originalRobotJsonParse.setRobotData(dataFromJson.robotData);
 
+      // Builds each robot prototype as found in the robotData.json file 
+      // RobotBuilds.RobotTypes.load();
+
       // Builds each weapon prototype as found in the robotData.json file 
-      RobotBuilds.buildWeaponPrototypes();
+      // RobotBuilds.buildWeaponPrototypes();
 
       // Builds each modification prototype as found in the robotData.json file 
-      RobotBuilds.buildModificationPrototypes();
+      // RobotBuilds.buildModificationPrototypes();
 
-      // Builds each robot prototype as found in the robotData.json file 
-      RobotBuilds.buildRobotTypePrototypes();
 
       });
   };
