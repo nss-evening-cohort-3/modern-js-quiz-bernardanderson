@@ -9,6 +9,8 @@ var RobotBuilds = (function(originalRobot) {
 // This holds the created players for easier access
   var createdPlayers = {};
 
+  originalRobot.Robots = {};
+
 // This holds the available robots types that can be built
   var availableRobotTypes = {};
 
@@ -34,14 +36,14 @@ var RobotBuilds = (function(originalRobot) {
     this.health  = Math.round(Math.random() * (this.maxHealth - this.minHealth) + this.minHealth);
   };
 
-// Allows the setting of the modification of the robot
+  // Allows the setting of the modification of the robot
   originalRobot.Robots.prototype.setModification = function(newModification) {
-    this.modification = newModification;
+    this.modification = RobotBuilds.AllModifications.accessModifications()[newModification];
   };
 
-// Allows the setting of the weapon of the robot
+  // Allows the setting of the weapon of the robot
   originalRobot.Robots.prototype.setWeapon = function(newWeapon) {
-    this.weapon = newWeapon;
+    this.weapon = RobotBuilds.AllWeapons.accessWeapons()[newWeapon];
   };
 
   // Allows the setting of the weapon of the robot
@@ -71,12 +73,12 @@ var RobotBuilds = (function(originalRobot) {
 
       $(typeData).each( function(index, robotTypes) {
 
-        availableRobotTypes[robotTypes.type] = Object.create(originalRobot.Robots.prototype);
-
+        originalRobot[robotTypes.type] = new originalRobot.Robots();
+**** inheriting but not constructing
 // This adds the base properties from the Robot Types in the json object to the newly created prototyped Type objects
         for(var robotTypeProperties in robotTypes) {
           if (robotTypeProperties !== "model") {
-            availableRobotTypes[robotTypes.type][robotTypeProperties]=robotTypes[robotTypeProperties];
+            originalRobot[robotTypes.type][robotTypeProperties]=robotTypes[robotTypeProperties];
           }
         }
       });
