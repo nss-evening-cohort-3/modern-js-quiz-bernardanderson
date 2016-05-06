@@ -16,7 +16,7 @@ var RobotBuilds = (function(robotModifications) {
     modEvasion: 0,
   };
 
-// This for each loop prototypes each specific modification contained within the base json file to the base Modification 
+// This for-each loop prototypes each specific modification contained within the base json file to the base Modification 
 //  property above. This allows the dynamic addtion/removal of modifications to the program where only the json file
 //  needs to be changed.
   robotModifications.AllModifications = {
@@ -40,7 +40,7 @@ var RobotBuilds = (function(robotModifications) {
         for (var robotModificationProperties in modification) {
           ModificationsList[modification.modName][robotModificationProperties] = modification[robotModificationProperties];
         }
-      })
+      });
     }
   };
 

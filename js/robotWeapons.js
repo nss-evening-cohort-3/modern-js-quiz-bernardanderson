@@ -40,7 +40,7 @@ var RobotBuilds = (function(robotWeapons) {
         for (var robotWeaponProperties in weapon) {
           WeaponList[weapon.weaponName][robotWeaponProperties] = weapon[robotWeaponProperties];
         }
-      })
+      });
     }
   };
 
