@@ -15,15 +15,13 @@ var RobotBuilds = (function(originalRobotJsonParse) {
       originalRobotJsonParse.setRobotData(dataFromJson.robotData);
 
       // Builds each robot prototype as found in the robotData.json file 
-      // RobotBuilds.RobotTypes.load();
+      RobotBuilds.RobotTypes.loadAvailableRobots();
 
       // Builds each weapon prototype as found in the robotData.json file 
-      // RobotBuilds.buildWeaponPrototypes();
+      RobotBuilds.AllWeapons.buildWeapons();
 
       // Builds each modification prototype as found in the robotData.json file 
-      // RobotBuilds.buildModificationPrototypes();
-
-
+      RobotBuilds.AllModifications.buildModifications();
       });
   };
 

@@ -3,46 +3,50 @@
 var RobotBuilds = (function(originalRobot) {
 
 ///
-/// This stuff gets done the moment the iife is loaded. The Robot prototype is what is used to make ANY Robot so it being made on
-///  page load is good.
+/// This stuff gets done the moment the iife is loaded. The Robot prototype is what is used to make ANY Robot.
 ///
 
 // This holds the created players for easier access
   var createdPlayers = {};
 
-// This holds the available robots that can be built
+// This holds the available robots types that can be built
   var availableRobotTypes = {};
 
-// Defines the private Robot prototype that holds all the basic player creation functions
-  var Robots = Object.create(null);
+// Defines the private Robot prototype (which doesn't inherit anything) that holds all the basic player creation functions
+  // var Robots = Object.create(null);
 
-// The base function for building a generic robot
-  Robots.prototype = {
-    name: "BasicBot", // Holds the user entered name
-    type: "Cleaning Unit", // Holds the Robot type (of the three types)
-    model: "X11", // Holds the Robot model (of the two models per type)
-    description: "Standard Non-Combat Robot",
-    minHealth: 1, // Holds the minimum health possibility for the robot
-    maxHealth: 2, // Holds the maximum health possibility for the robot
-    health: 2, // Holds the actual health for the robot
-    damage: 0, // Holds the base damage for the robot
-    evasion: 1, // Holds the base evasion for the robot
-    protection: 1, // Holds the base protection for the robot
-    modification: "None", // Holds the modification type
-    weapon: "Broom", // Holds the weapon type
+// The base object for building a generic robot
+  originalRobot.Robots = function() {
+    this.damage = 0; // Holds the base damage for the robot (which will be regenerated when the weapon is chosen)
+    this.description = "Standard Non-Combat Robot"; // What is the description of the robot
+    this.evasion = 0; // Holds the base evasion for the robot (which will be modified when the modification is chosen)
+    this.health = 1; // Holds the actual health for the robot (which will be regenerated when the type is chosen)
+    this.model = "X11"; // Holds the Robot model (of the two models per type)
+    this.modification = "None"; // Holds the modification type (which will be modified when the modification is chosen)
+    this.name = "BasicBot"; // Holds the user entered name
+    this.protection = 0; // Holds the base protection for the robot (which will be modified when the modification is chosen)
+    this.type = null; // Holds the Robot type
+    this.weapon = null; // Holds the weapon type (which will be modified when the weapon is chosen)
   };
 
 // Allows the generation of random health of a Robot Type and Model based on its min and max health
-  Robots.prototype.setHealth = function() {
+  originalRobot.Robots.prototype.setHealth = function() {
     this.health  = Math.round(Math.random() * (this.maxHealth - this.minHealth) + this.minHealth);
   };
 
-  Robots.prototype.setModification = function(newModification) {
+// Allows the setting of the modification of the robot
+  originalRobot.Robots.prototype.setModification = function(newModification) {
     this.modification = newModification;
   };
 
-  Robots.prototype.setWeapon = function(newWeapon) {
+// Allows the setting of the weapon of the robot
+  originalRobot.Robots.prototype.setWeapon = function(newWeapon) {
     this.weapon = newWeapon;
+  };
+
+  // Allows the setting of the weapon of the robot
+  originalRobot.Robots.prototype.setName = function(newName) {
+    this.name = newName;
   };
 
 ///
@@ -53,73 +57,31 @@ var RobotBuilds = (function(originalRobot) {
 //  property above. This allows the dynamic addtion/removal of Robot Types to the program where only the json file
 //  needs to be changed.
   originalRobot.RobotTypes = {
-    
+
+// This allows access to the "private" Robot types as listed in the json file 
     accessAvailableRobotTypes: function() {
       return availableRobotTypes;
     },
 
+// This loads the robot type objects from the json file, prototypes them to the Robots object, and sets there properties
+//  based on their stats in the json file.
     loadAvailableRobots: function() {
 
       var typeData = RobotBuilds.getRobotData().robotTypes;
 
       $(typeData).each( function(index, robotTypes) {
 
-        availableRobotTypes[robotTypes.type] = Object.create(Robots.prototype);
+        availableRobotTypes[robotTypes.type] = Object.create(originalRobot.Robots.prototype);
 
-        for(var robotTypeProperties in robotTypes) availableRobotTypes[robotTypes.type][robotTypeProperties]=robotTypes[robotTypeProperties];
-        // Object.keys(robotTypes).forEach( (property) => {
-
-          // availableRobotsList[categoryValue.type][categoryValue] = categoryValue[property];
-
-          console.log("robotTypes", robotTypes);
-          console.log("availableRobotTypes", availableRobotTypes);
-          console.log("availableRobotTypes[categoryValue]", availableRobotTypes[robotTypes]);
-          // console.log("availableRobotTypes[categoryValue.type]", availableRobotTypes[robotTypes.type]);
-          // })
-
-          // Object.defineProperty(availableRobotsList[categoryValue.type], categoryValue, {
-          //   writable: true,
-          //   enumerable: true,
-          //   configurable: true,
-          //   value: categoryValue[property]
-          // })
-
-          // console.log("availableRobotsList[categoryValue.type]", availableRobotsList[categoryValue.type]);
-
-
-          // availableRobotsList[categoryValue.type] = function() {
-            // this.name = sentName;
-            // this.description = categoryValue.description;
-            // this.minHealth = categoryValue.minHealth;
-            // this.model = sentModel;
-
-        });
-
-      }
-
+// This adds the base properties from the Robot Types in the json object to the newly created prototyped Type objects
+        for(var robotTypeProperties in robotTypes) {
+          if (robotTypeProperties !== "model") {
+            availableRobotTypes[robotTypes.type][robotTypeProperties]=robotTypes[robotTypeProperties];
+          }
+        }
+      });
     }
-  // }
-    //   ,
-
-
-
-    // // These constructor prototypes are going to be sent an object that contains the:
-    // //  the player name, type and model.
-
-
-    //   }
-
-    // }//)
-  // }
-// }
-// }
-
-        // for (var modelValue in categoryValue.model) {
-        //   console.log(categoryValue.model[modelValue]);
-        //   // if (this.model === model[modelValue])
-        // };
-
-
+  }
 
 // // Allows the building of the "Avain" robot type. It needs to be sent the name of the
 // //  of the type, and the model id. 

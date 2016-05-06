@@ -4,39 +4,44 @@
 
 var RobotBuilds = (function(robotWeapons) {
 
-// Generic (aka none) weapon systems with base settings
-  robotWeapons.Weapons = function() {
-    this.name = "No Weapon";
-    this.description = "Weapon Slot Empty";
-    this.lowDamage = 0;
-    this.HighDamage = 0;
-    this.specialDamageClass = 0;
+  // Object holder for the newly created weapon objects
+  var WeaponList = {};
+
+// Generic (aka none) weapon system with base settings
+  var Weapon = {
+    name: "No Weapon",
+    description: "Weapon Slot Empty",
+    lowDamage: 0,
+    highDamage: 0,
+    specialDamageClass: 0
   };
 
 // This for each loop prototypes each specific weapon contained within the base json file to the base Weapon 
 //  property above. This allows the dynamic addtion/removal of weapons to the program where only the json file
 //  needs to be changed.
-  robotWeapons.buildWeaponPrototypes = function() {
+  robotWeapons.AllWeapons = {
 
-    let weaponData = RobotBuilds.getRobotData().weapons;
+    // Allows access to the stored weapon objects
+    accessWeapons: () => { return WeaponList; },
 
-    $(weaponData).each( function(index, categoryValue) {
+    // This builds the weapon objects from the JSON data
+    buildWeapons: () => {
 
-      robotWeapons.Weapons[categoryValue.weaponName] = function() {
-        this.name = categoryValue.name;
-        this.description = categoryValue.description;
-        this.lowDamage = categoryValue.lowDamage;
-        this.highDamage = categoryValue.highDamage;
+      // Pulls the weapon data from the parsed JSON data
+      var weaponData = RobotBuilds.getRobotData().weapons;
 
-        if (categoryValue.specialDamageClass !== undefined) {
-          this.specialDamageClass = categoryValue.specialDamageClass;
+      // Cycles through each weapon in the Json weaponData
+      $(weaponData).each(function(index, weapon) {
+
+        // Creates an object based on the current weapon name
+        WeaponList[weapon.weaponName] = Object.create(Weapon);
+
+        // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
+        for (var robotWeaponProperties in weapon) {
+          WeaponList[weapon.weaponName][robotWeaponProperties] = weapon[robotWeaponProperties];
         }
-
-      robotWeapons.Weapons[categoryValue.weaponName].prototype = new robotWeapons.Weapons();
-
-      };
-    });
-
+      })
+    }
   };
 
   return robotWeapons;

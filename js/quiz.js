@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   // let robotPlayer = {};
 
-  // robotPlayer = new RobotBuilds.Players.Avian({name: "Dude", model: "Rotors"});
+  // robotPlayer = new RobotBuilds.Robots.Avian({name: "Dude", model: "Rotors"});
   // robotPlayer.setHealth();
   // robotPlayer.setModification(new RobotBuilds.Modification.Engine());
   // RobotBuilds.setPlayers(robotPlayer);

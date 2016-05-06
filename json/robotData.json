@@ -3,82 +3,82 @@
     "robotTypes": [{
       "type": "Avian",
       "description": "A completely arial-based robot",
-      "minHealth": "45",
+      "minHealth": 45,
       "model": [{
         "id": "rotors",
         "name": "Rotors",
-        "maxHealth": "65"
+        "maxHealth": 65
         }, {
         "id": "buoyant",
         "name": "Buoyant",
-        "maxHealth": "55"
+        "maxHealth": 55
         }]
     }, {
       "type": "Legged",
       "description": "Land-based, limb driven robot",
-      "minHealth": "55",
+      "minHealth": 55,
       "model": [{
         "id": "2legged",
         "name": "Biped",
-        "maxHealth": "65"
+        "maxHealth": 65
         }, {
         "id": "4legged",
         "name": "Quadruped",
-        "maxHealth": "75"
+        "maxHealth": 75
         }]
     }, {
       "type": "Wheeled",
       "description": "Land-based, wheel driven robot",
-      "minHealth": "55",
+      "minHealth": 55,
       "model": [{
         "id": "stdwheeled",
         "name": "Standard Wheeled",
-        "maxHealth": "75"
+        "maxHealth": 75
         }, {
         "id": "sphwheeled",
         "name": "Spherical Wheeled",
-        "maxHealth": "70"
+        "maxHealth": 70
       }]
     }],
     "weapons": [{
       "weaponName": "PPC",
       "name": "Particle Projection Cannon",
       "description": "Shoots a blob of highly charged particles that severely damage matter.",
-      "lowDamage": "10",
-      "highDamage": "20"
+      "lowDamage": 10,
+      "highDamage": 20
     }, {
       "weaponName": "Laserbeam",
       "name": "Laser Beam",
       "description": "Shoots photons with enough energy to partially metal steel",
-      "lowDamage": "5",
-      "highDamage": "30"
+      "lowDamage": 5,
+      "highDamage": 30
     }, {
       "weaponName": "Vibroblade",
       "name": "Vibroblade",
       "description": "Sword that vibrates at hypersonic speeds and does massive damage but can do damage to wielder",
-      "lowDamage": "30",
-      "highDamage": "40",
-      "specialDamageClass": "1"
+      "lowDamage": 30,
+      "highDamage": 40,
+      "specialDamageClass": 1
     }, {
       "weaponName": "Missles",
       "name": "Missles",
       "description": "Unleash a flurry of unguided missles on your foe. Just aim and shoot!",
-      "lowDamage": "0",
-      "highDamage": "30"
+      "lowDamage": 0,
+      "highDamage": 30
     }, {
       "weaponName": "Espikes",
       "name": "Explosive Spikes",
       "description": "Each explosive spike contains a high telsa electromagnet. Unfortunately the magnet electronics have severely decreased the payload.",
-      "lowDamage": "2",
-      "highDamage": "5",
-      "specialDamageClass": "2"
+      "lowDamage": 2,
+      "highDamage": 5,
+      "specialDamageClass": 2
     }, {
       "weaponName": "MachineGun",
       "name": "Machine Gun",
       "description": "Your basic machine gun. Low damage but can have bursts that deliver extra damage.",
-      "lowDamage": "5",
-      "highDamage": "10",
-      "specialDamageClass": "3"
+      "lowDamage": 5,
+      "highDamage": 10,
+      "specialDamageClass": 3
     }],
     "modifications": [{
       "modName": "Engine",
