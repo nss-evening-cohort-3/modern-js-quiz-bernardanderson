@@ -13,7 +13,6 @@ $(document).ready(function() {
     console.log(event.target);
 
     if ($(event.target).hasClass("robot-type")) {
-      console.log("It's True");
       $(".robot-type").removeClass("selected");
       $(event.target).addClass("selected");
       RobotWars.buildModelButtons($(event.target).attr("type-element"));
@@ -38,6 +37,9 @@ $(document).ready(function() {
       $("#player-submit").removeClass("hidden");
     }
 
+    if ($(event.target).attr("id") === "main-submit") {
+      RobotWars.buildCompletePlayer();
+    }
 
 
   });

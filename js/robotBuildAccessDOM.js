@@ -4,12 +4,12 @@
 var RobotWars = (function(buildDOM) {
 
 // This holds the overall created players for easier access
-  var createdPlayers = {};
+  var createdPlayers = [];
 
   buildDOM.buildInitialDOM = function() {
 
     // Sets the current length of the createdPlayers object which will hold the completed players
-    var currentPlayer = Object.keys(createdPlayers).length;
+    var currentPlayer = createdPlayers.length;
     
     // Builds the inintial DOM containers
     $("#main-input-holder").html(`
@@ -97,10 +97,44 @@ var RobotWars = (function(buildDOM) {
     $("#robot-models").html(modelString);
   };
 
+// Builds the player from the selected elements on the DOM
+  buildDOM.buildCompletePlayer = function() {
+    
+    var newPlayerModel = $(".selected")[0].id;
+    var newPlayerType = $(".selected")[1].id;
+    var newPlayerWeapon = $(".selected")[2].id
+    var newPlayerModification = $(".selected")[3].id
+
+    // Makes the new player
+    var newPlayer = new RobotWars[newPlayerModel][newPlayerType]();
+
+    newPlayer.setHealth();
+    newPlayer.setWeapon(newPlayerWeapon);
+    newPlayer.setModification(newPlayerModification);
+
+    // Checks to see if the player namebox is empty
+    if ($("#robot-playerName").val() !== "") {
+      newPlayer.setPlayerName($("#robot-playerName").val());
+    } else {
+      newPlayer.setPlayerName("Bubba");
+    }
+
+    RobotWars.addPlayer(newPlayer);
+
+    // Checks to see if one or two players have been built
+    if (createdPlayers.length < 2) {
+      alert("Player Created!");
+      RobotWars.buildInitialDOM();
+    } else {
+      alert("Player Created now Fight!");
+      $("#main-input-holder").addClass("hidden");
+    }
+
+  };
 
 // Adds objects (i.e. players) to the createdPlayer object for easy access
-  buildDOM.setPlayers = function(newlyCreatedPlayer) {
-    createdPlayers[newlyCreatedPlayer.name] = newlyCreatedPlayer;
+  buildDOM.addPlayer = function(newlyCreatedPlayer) {
+    createdPlayers.push(newlyCreatedPlayer);
   };
 
 // Returns the created robot players so they are easily accessable
