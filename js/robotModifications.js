@@ -5,28 +5,23 @@
 var RobotWars = (function(robotModifications) {
 
   // Object holder for the newly created modification objects
-  var ModificationsList = {};
+  robotModifications.ModificationsList = {};
 
   // Generic (aka none) modification with base settings
-  var Modification = {
-    modId: "EmptyMod",
-    modName: "None",
-    modDescription: "Modification Slot Empty",
-    modProtection: 0,
-    modDamage: 0,
-    modEvasion: 0,
+  robotModifications.ModificationsList.NoModification = function () {
+    this.modId = "EmptyMod";
+    this.modName = "None";
+    this.modDescription = "Modification Slot Empty";
+    this.modProtection = 0;
+    this.modDamage = 0;
+    this.modEvasion = 0;
   };
 
 // This for-each loop prototypes each specific modification contained within the base json file to the base Modification 
 //  property above. This allows the dynamic addtion/removal of modifications to the program where only the json file
 //  needs to be changed.
-  robotModifications.AllModifications = {
-
-    // Allows access to the stored modification objects
-    accessModifications: () => { return ModificationsList; },
-
-    // This builds the modification objects from the JSON data
-    buildModifications: () => {
+// This builds the modification objects from the JSON data
+  robotModifications.buildModifications = function() {
 
       // Pulls the modification data from the parsed JSON data
       let modificationData = RobotWars.getRobotData().modifications;
@@ -35,15 +30,17 @@ var RobotWars = (function(robotModifications) {
       $(modificationData).each( function(index, modification) {
 
         // Creates an object based on the current modification name
-        ModificationsList[modification.modId] = Object.create(Modification);
+        robotModifications.ModificationsList[modification.modId] = function() {
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
         for (var robotModificationProperties in modification) {
-          ModificationsList[modification.modId][robotModificationProperties] = modification[robotModificationProperties];
+          this[robotModificationProperties] = modification[robotModificationProperties];
         }
-      });
-    }
-  };
+      }
+    // Prototypes the current modification to the "NoModification" base object
+    robotModifications.ModificationsList[modification.modId].prototype = new robotModifications.ModificationsList.NoModification();
+    });
+  }
 
   return robotModifications;
 

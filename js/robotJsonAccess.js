@@ -18,10 +18,10 @@ var RobotWars = (function(originalRobotJsonParse) {
       RobotWars.loadAvailableRobots();
 
       // Builds each weapon object as found in the robotData.json file 
-      RobotWars.AllWeapons.buildWeapons();
+      RobotWars.buildWeapons();
 
       // Builds each modification object as found in the robotData.json file 
-      RobotWars.AllModifications.buildModifications();
+      RobotWars.buildModifications();
       });
   };
 

@@ -24,12 +24,12 @@ var RobotWars = (function(originalRobot) {
 
 // Allows the setting of the modification of the robot
   originalRobot.BasicRobot.prototype.setModification = function(newModification) {
-    this.modification = RobotWars.AllModifications.accessModifications()[newModification];
+    this.modification = new RobotWars.ModificationsList[newModification];
   };
  
 // Allows the setting of the weapon of the robot
   originalRobot.BasicRobot.prototype.setWeapon = function(newWeapon) {
-    this.weapon = RobotWars.AllWeapons.accessWeapons()[newWeapon];
+    this.weapon = new RobotWars.WeaponList[newWeapon];
   };
 
 // Allows the setting of the weapon of the robot
