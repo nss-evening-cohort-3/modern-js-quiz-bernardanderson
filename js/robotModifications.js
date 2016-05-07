@@ -2,15 +2,16 @@
 
 // Augmentor containing all modification information
 
-var RobotBuilds = (function(robotModifications) {
+var RobotWars = (function(robotModifications) {
 
   // Object holder for the newly created modification objects
   var ModificationsList = {};
 
   // Generic (aka none) modification with base settings
   var Modification = {
-    name: "None",
-    description: "Modification Slot Empty",
+    modId: "EmptyMod",
+    modName: "None",
+    modDescription: "Modification Slot Empty",
     modProtection: 0,
     modDamage: 0,
     modEvasion: 0,
@@ -28,17 +29,17 @@ var RobotBuilds = (function(robotModifications) {
     buildModifications: () => {
 
       // Pulls the modification data from the parsed JSON data
-      let modificationData = RobotBuilds.getRobotData().modifications;
+      let modificationData = RobotWars.getRobotData().modifications;
 
       // Cycles through each modificiation in the Json weaponData
       $(modificationData).each( function(index, modification) {
 
         // Creates an object based on the current modification name
-        ModificationsList[modification.modName] = Object.create(Modification);
+        ModificationsList[modification.modId] = Object.create(Modification);
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
         for (var robotModificationProperties in modification) {
-          ModificationsList[modification.modName][robotModificationProperties] = modification[robotModificationProperties];
+          ModificationsList[modification.modId][robotModificationProperties] = modification[robotModificationProperties];
         }
       });
     }
@@ -46,4 +47,4 @@ var RobotBuilds = (function(robotModifications) {
 
   return robotModifications;
 
-})(RobotBuilds || {});
+})(RobotWars || {});

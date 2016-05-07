@@ -2,26 +2,26 @@
 
 // This handles the XHR JSon (which holds all the robot type and sub-type stats,
 //  modifications and weapon data pull.
-var RobotBuilds = (function(originalRobotJsonParse) {
+var RobotWars = (function(originalRobotJsonParse) {
 
 // A private variable which holds all the jsondata
   let parsedRobotJsonData = {};
 
-// This is the main Promise method that loads the json data and builds the DOM
+// This is the main Promise method that loads the json data and builds the Robot Types, sub-models, weapons and modifications
   originalRobotJsonParse.MainLoadBuildPromise = function() {
     originalRobotJsonParse.XHRLoad("robotData").then(function(dataFromJson) {
 
       // Adds the parsed Json data to the "parsedRobotJsonData" private variable 
       originalRobotJsonParse.setRobotData(dataFromJson.robotData);
 
-      // Builds each robot prototype as found in the robotData.json file 
-      RobotBuilds.RobotTypes.loadAvailableRobots();
+      // Builds each robot type and sub-model constructor function as found in the robotData.json file 
+      RobotWars.loadAvailableRobots();
 
-      // Builds each weapon prototype as found in the robotData.json file 
-      RobotBuilds.AllWeapons.buildWeapons();
+      // Builds each weapon object as found in the robotData.json file 
+      RobotWars.AllWeapons.buildWeapons();
 
-      // Builds each modification prototype as found in the robotData.json file 
-      RobotBuilds.AllModifications.buildModifications();
+      // Builds each modification object as found in the robotData.json file 
+      RobotWars.AllModifications.buildModifications();
       });
   };
 
@@ -50,4 +50,4 @@ var RobotBuilds = (function(originalRobotJsonParse) {
 
   return originalRobotJsonParse;
 
-})(RobotBuilds || {});
+})(RobotWars || {});

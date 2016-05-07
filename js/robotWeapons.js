@@ -2,15 +2,16 @@
 
 // Augmentor containing all weapon information
 
-var RobotBuilds = (function(robotWeapons) {
+var RobotWars = (function(robotWeapons) {
 
   // Object holder for the newly created weapon objects
   var WeaponList = {};
 
 // Generic (aka none) weapon system with base settings
   var Weapon = {
-    name: "No Weapon",
-    description: "Weapon Slot Empty",
+    weaponId: "Empty Slot",
+    weaponName: "No Weapon",
+    weaponDescription: "Weapon Slot Empty",
     lowDamage: 0,
     highDamage: 0,
     specialDamageClass: 0
@@ -28,17 +29,17 @@ var RobotBuilds = (function(robotWeapons) {
     buildWeapons: () => {
 
       // Pulls the weapon data from the parsed JSON data
-      var weaponData = RobotBuilds.getRobotData().weapons;
+      var weaponData = RobotWars.getRobotData().weapons;
 
       // Cycles through each weapon in the Json weaponData
       $(weaponData).each(function(index, weapon) {
 
         // Creates an object based on the current weapon name
-        WeaponList[weapon.weaponName] = Object.create(Weapon);
+        WeaponList[weapon.weaponId] = Object.create(Weapon);
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
         for (var robotWeaponProperties in weapon) {
-          WeaponList[weapon.weaponName][robotWeaponProperties] = weapon[robotWeaponProperties];
+          WeaponList[weapon.weaponId][robotWeaponProperties] = weapon[robotWeaponProperties];
         }
       });
     }
@@ -46,4 +47,4 @@ var RobotBuilds = (function(robotWeapons) {
 
   return robotWeapons;
 
-})(RobotBuilds || {});
+})(RobotWars || {});
