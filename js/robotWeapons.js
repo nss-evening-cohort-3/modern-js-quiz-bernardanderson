@@ -33,15 +33,15 @@ var RobotWars = (function(robotWeapons) {
     // Cycles through each weapon in the Json weaponData
     $(weaponData).each(function(index, weapon) {
 
-      // Creates an object based on the current weapon name
+      // Creates an constructor function based on the current weapon name
       robotWeapons.WeaponList[weapon.weaponId] = function() {
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
         for (var robotWeaponProperties in weapon) {
           this[robotWeaponProperties] = weapon[robotWeaponProperties];
         }
-      }
-    // Prototypes the weapon to the "NoWeapon" base object
+      };
+    // Prototypes the current weapon to the "NoWeapon" base object
     robotWeapons.WeaponList[weapon.weaponId].prototype = new robotWeapons.WeaponList.NoWeapon();
     });
   };

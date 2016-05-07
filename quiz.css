@@ -2,3 +2,14 @@ body {
   box-sizing: border-box;
 }
 
+.hidden {
+  display: none;
+}
+
+.button {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+
+}

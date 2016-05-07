@@ -2,9 +2,6 @@
 
 var RobotWars = (function(originalRobot) {
 
-// This holds the created players for easier access
-  var createdPlayers = {};
-
 // This holds the available robots types that can be built
   var availableRobotTypes = {};
 
@@ -24,12 +21,12 @@ var RobotWars = (function(originalRobot) {
 
 // Allows the setting of the modification of the robot
   originalRobot.BasicRobot.prototype.setModification = function(newModification) {
-    this.modification = new RobotWars.ModificationsList[newModification];
+    this.modification = new RobotWars.ModificationsList[newModification]();
   };
  
 // Allows the setting of the weapon of the robot
   originalRobot.BasicRobot.prototype.setWeapon = function(newWeapon) {
-    this.weapon = new RobotWars.WeaponList[newWeapon];
+    this.weapon = new RobotWars.WeaponList[newWeapon]();
   };
 
 // Allows the setting of the weapon of the robot
@@ -96,19 +93,8 @@ var RobotWars = (function(originalRobot) {
 ///
 //// EndOf - Builds Robot Type, Model Specific Constructor Functions
 ///
-
       });
     };
-
-// Adds objects (i.e. players) to the createdPlayer object for easy access
-  originalRobot.setPlayers = function(newlyCreatedPlayer) {
-    createdPlayers[newlyCreatedPlayer.name] = newlyCreatedPlayer;
-  };
-
-// Returns the created robot players so they are easily accessable
-  originalRobot.getPlayers = function() {
-    return createdPlayers;
-  };
 
   return originalRobot;
 

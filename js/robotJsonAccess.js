@@ -22,6 +22,10 @@ var RobotWars = (function(originalRobotJsonParse) {
 
       // Builds each modification object as found in the robotData.json file 
       RobotWars.buildModifications();
+
+      // Builds the intial DOM view 
+      RobotWars.buildInitialDOM();
+
       });
   };
 

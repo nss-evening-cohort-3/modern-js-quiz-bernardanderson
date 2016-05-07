@@ -36,11 +36,11 @@ var RobotWars = (function(robotModifications) {
         for (var robotModificationProperties in modification) {
           this[robotModificationProperties] = modification[robotModificationProperties];
         }
-      }
+      };
     // Prototypes the current modification to the "NoModification" base object
     robotModifications.ModificationsList[modification.modId].prototype = new robotModifications.ModificationsList.NoModification();
     });
-  }
+  };
 
   return robotModifications;
 
