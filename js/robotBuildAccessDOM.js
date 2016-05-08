@@ -13,7 +13,7 @@ var RobotWars = (function(buildDOM) {
     
     // Builds the inintial DOM containers
     $("#main-input-holder").html(`
-        <section id="player-input" current-player=${currentPlayer}>
+        <section id="player-input">
           <article id="player-title-name-choice">
             <p>Welcome Player ${currentPlayer+1}! Enter your name and choose your Robot Type</p>
             <input id="robot-playerName"></input>
@@ -100,14 +100,14 @@ var RobotWars = (function(buildDOM) {
 // Builds the player from the selected elements on the DOM
   buildDOM.buildCompletePlayer = function() {
     
+    // Gets all the "selected" data from the DOM entries
     var newPlayerModel = $(".selected")[0].id;
     var newPlayerType = $(".selected")[1].id;
-    var newPlayerWeapon = $(".selected")[2].id
-    var newPlayerModification = $(".selected")[3].id
+    var newPlayerWeapon = $(".selected")[2].id;
+    var newPlayerModification = $(".selected")[3].id;
 
-    // Makes the new player
+    // Builds the new player
     var newPlayer = new RobotWars[newPlayerModel][newPlayerType]();
-
     newPlayer.setHealth();
     newPlayer.setWeapon(newPlayerWeapon);
     newPlayer.setModification(newPlayerModification);
@@ -116,20 +116,69 @@ var RobotWars = (function(buildDOM) {
     if ($("#robot-playerName").val() !== "") {
       newPlayer.setPlayerName($("#robot-playerName").val());
     } else {
-      newPlayer.setPlayerName("Bubba");
+      newPlayer.setPlayerName("No-Name Bubba");
     }
 
+    // Adds the newly built player to a private variable for easy access 
     RobotWars.addPlayer(newPlayer);
 
-    // Checks to see if one or two players have been built
+    alert(`Player ${createdPlayers.length}, ${newPlayer.playerName}, created!`);
+
+    // Checks to see if less than two players have been built, if so, lets you build another
+    //  If not, then it hides the input panel.
     if (createdPlayers.length < 2) {
-      alert("Player Created!");
       RobotWars.buildInitialDOM();
     } else {
-      alert("Player Created now Fight!");
       $("#main-input-holder").addClass("hidden");
     }
+  };
 
+// Function to handling the displaying of Robot type, model, weapon and modificiation stats during player creaton
+  buildDOM.displayItemStatistics = function(sentEventTarget) {
+
+    // Pulls the parsed JSONdata
+    var robotData = RobotWars.getRobotData();
+
+    // Inits the temporary string used in the making of the html content
+    var tempString = "";
+
+    // Checks to see if the mouse is over a robot type, if so, displays name, description and min health 
+    if ($(event.target).hasClass("robot-type")) {
+      tempString = `<h3>Robot Type: ${$(event.target).html()}</h3>
+      <p>Description: ${robotData.robotTypes[$(event.target).attr("type-element")].typeDescription}</p>
+      <p>Minimum Health: ${robotData.robotTypes[$(event.target).attr("type-element")].minHealth} pts</p>`;
+      $("#output-panel").html(tempString);
+    }
+
+    // Checks to see if the mouse is over a robot model, if so, displays name, description and max health 
+    if ($(event.target).hasClass("robot-model")) {
+      
+      let selectedTypeName = $(".selected").html();
+      let selectedTypeElement = $(".selected").attr("type-element");
+      let currentModel = robotData.robotTypes[selectedTypeElement].model[$(event.target).attr("model-element")];
+
+      tempString = `<h3>${selectedTypeName} Robot, sub-model: ${$(event.target).html()}</h3>
+      <p>Description: ${currentModel.modelDescription}</p>
+      <p>Maximum Health: ${currentModel.maxHealth}</p>`;
+      $("#output-panel").html(tempString);
+    }
+
+    // Checks to see if the mouse is over a weapon, if so, displays name, description and damage range
+    if ($(event.target).hasClass("robot-weapon")) {
+      tempString = `<h3>Weapon Type: ${$(event.target).html()}</h3>
+      <p>Description: ${robotData.weapons[$(event.target).attr("type-element")].weaponDescription}</p>
+      <p>Damage Range: ${robotData.weapons[$(event.target).attr("type-element")].lowDamage} to ${robotData.weapons[$(event.target).attr("type-element")].highDamage} points`;
+      $("#output-panel").html(tempString);
+    }
+
+    // Checks to see if the mouse is over a modification, if so, displays name, description and modifier stats
+    if ($(event.target).hasClass("robot-modification")) {
+      let currentMod = robotData.modifications[$(event.target).attr("type-element")];
+      tempString = `<h3>Modification Type: ${$(event.target).html()}</h3>
+      <p>Description: ${currentMod.modDescription}</p>
+      <p>Protection: ${currentMod.modProtection}, Evasion: ${currentMod.modEvasion}, Damage: ${currentMod.modDamage}`;
+      $("#output-panel").html(tempString);
+    }
   };
 
 // Adds objects (i.e. players) to the createdPlayer object for easy access

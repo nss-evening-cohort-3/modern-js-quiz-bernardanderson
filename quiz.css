@@ -1,6 +1,14 @@
 body {
   box-sizing: border-box;
+  /*display: flex;*/
+  /*flex-flow: row || wrap;*/
+  text-align: center;
 }
+
+  .main-display {
+    display: block;
+
+  }
 
 .hidden {
   display: none;
@@ -11,5 +19,17 @@ body {
   margin-left: 5px;
   margin-right: 5px;
   cursor: pointer;
+}
 
+#output-panel {
+  display: block;
+  height: 20vh;
+  width: 94vw;
+  margin-right: auto;
+  margin-left: auto;
+  position: fixed;
+  bottom: 5px;
+  padding: 5px;
+  left: 3vw;
+  border: 1px solid red;
 }
