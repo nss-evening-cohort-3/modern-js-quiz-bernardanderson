@@ -1,7 +1,9 @@
 "use strict";
 
-// Augmentor containing all weapon information
-
+// This file holds all the Robot weapon constructor functions and prototype methods.
+//  All non-NoWeapon Robot constructor functions are built dynamically from the json
+//  file. Additional Robot weapons can be added to game (by adding them to the json file)
+//  and no modification of the js files would be needed.
 var RobotWars = (function(robotWeapons) {
 
   // Object holder for the newly created weapon constructor functions
@@ -17,11 +19,6 @@ var RobotWars = (function(robotWeapons) {
     this.specialDamageClass = 0;
   };
 
-  // Allows the setting of the weapon damage of the robot call using: object.weapon.setWeaponDamage();
-  robotWeapons.WeaponList.NoWeapon.prototype.setWeaponDamage = function() {
-    this.damage  = Math.round(Math.random() * (this.highDamage - this.lowDamage) + this.lowDamage);
-  };
-
 // This for each loop prototypes each specific weapon contained within the base json file to the base Weapon property
 //  above. This allows the dynamic addtion/removal of weapons to the program where only the json file needs to be changed.
 // This builds the weapon objects from the JSON data
@@ -33,15 +30,15 @@ var RobotWars = (function(robotWeapons) {
     // Cycles through each weapon in the Json weaponData
     $(weaponData).each(function(index, weapon) {
 
-      // Creates an constructor function based on the current weapon name
+      // Creates a constructor function based on the current weapon name
       robotWeapons.WeaponList[weapon.weaponId] = function() {
 
-        // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon object
+        // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon constructor function 
         for (var robotWeaponProperties in weapon) {
           this[robotWeaponProperties] = weapon[robotWeaponProperties];
         }
       };
-    // Prototypes the current weapon to the "NoWeapon" base object
+    // Prototypes the current weapon to the "NoWeapon" base constructor function 
     robotWeapons.WeaponList[weapon.weaponId].prototype = new robotWeapons.WeaponList.NoWeapon();
     });
   };

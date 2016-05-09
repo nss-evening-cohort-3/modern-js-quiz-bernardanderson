@@ -122,14 +122,55 @@ var RobotWars = (function(buildDOM) {
     // Adds the newly built player to a private variable for easy access 
     RobotWars.addPlayer(newPlayer);
 
-    alert(`Player ${createdPlayers.length}, ${newPlayer.playerName}, created!`);
-
+    //Lets the 
+    $("#output-panel").html(`<h3>Player ${createdPlayers.length}, ${newPlayer.playerName}, created!</h3>`);
     // Checks to see if less than two players have been built, if so, lets you build another
     //  If not, then it hides the input panel.
     if (createdPlayers.length < 2) {
       RobotWars.buildInitialDOM();
     } else {
+      $("#main-input-holder").unbind();
       $("#main-input-holder").addClass("hidden");
+      $("#battle-page").removeClass("hidden");
+      RobotWars.buildBattleField();
+    }
+  };
+
+  buildDOM.displayPlayerBuildButtons = function(sentEventTarget) {
+
+    // Checks to see if the any of the robot-type buttons were clicked, selects it and builds the appropriate model
+    //  buttons for that RobotType, reveals the models panel 
+    if ($(sentEventTarget).hasClass("robot-type")) {
+      $(".robot-type").removeClass("selected");
+      $(sentEventTarget).addClass("selected");
+      RobotWars.buildModelButtons($(sentEventTarget).attr("type-element"));
+      $("#robot-models").removeClass("hidden");
+    }
+
+    // Checks to see if the any of the robot-model buttons were clicked, selects it and reveals the weapons panel 
+    if ($(sentEventTarget).hasClass("robot-model")) {
+      $(".robot-model").removeClass("selected");
+      $(sentEventTarget).addClass("selected");
+      $("#robot-weapons").removeClass("hidden");
+    }
+
+    // Checks to see if the any of the weapons buttons were clicked, selects it and reveals the modifications panel 
+    if ($(sentEventTarget).hasClass("robot-weapon")) {
+      $(".robot-weapon").removeClass("selected");
+      $(sentEventTarget).addClass("selected");
+      $("#robot-modifications").removeClass("hidden");
+    }
+
+    // Checks to see if the any of the modificiation buttons were clicked, selects it and reveals the submit panel 
+    if ($(sentEventTarget).hasClass("robot-modification")) {
+      $(".robot-modification").removeClass("selected");
+      $(sentEventTarget).addClass("selected");
+      $("#player-submit").removeClass("hidden");
+    }
+
+    // Checks to see if the submit button was pressed and calls the buildPlayer function
+    if ($(sentEventTarget).attr("id") === "main-submit") {
+      RobotWars.buildCompletePlayer();
     }
   };
 
@@ -143,42 +184,54 @@ var RobotWars = (function(buildDOM) {
     var tempString = "";
 
     // Checks to see if the mouse is over a robot type, if so, displays name, description and min health 
-    if ($(event.target).hasClass("robot-type")) {
-      tempString = `<h3>Robot Type: ${$(event.target).html()}</h3>
-      <p>Description: ${robotData.robotTypes[$(event.target).attr("type-element")].typeDescription}</p>
-      <p>Minimum Health: ${robotData.robotTypes[$(event.target).attr("type-element")].minHealth} pts</p>`;
+    if ($(sentEventTarget).hasClass("robot-type")) {
+      tempString = `<h3>Robot Type: ${$(sentEventTarget).html()}</h3>
+      <p>Description: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].typeDescription}</p>
+      <p>Minimum Health: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].minHealth} pts</p>`;
       $("#output-panel").html(tempString);
     }
 
     // Checks to see if the mouse is over a robot model, if so, displays name, description and max health 
-    if ($(event.target).hasClass("robot-model")) {
+    if ($(sentEventTarget).hasClass("robot-model")) {
       
       let selectedTypeName = $(".selected").html();
       let selectedTypeElement = $(".selected").attr("type-element");
-      let currentModel = robotData.robotTypes[selectedTypeElement].model[$(event.target).attr("model-element")];
+      let currentModel = robotData.robotTypes[selectedTypeElement].model[$(sentEventTarget).attr("model-element")];
 
-      tempString = `<h3>${selectedTypeName} Robot, sub-model: ${$(event.target).html()}</h3>
+      tempString = `<h3>${selectedTypeName} Robot, sub-model: ${$(sentEventTarget).html()}</h3>
       <p>Description: ${currentModel.modelDescription}</p>
       <p>Maximum Health: ${currentModel.maxHealth}</p>`;
       $("#output-panel").html(tempString);
     }
 
     // Checks to see if the mouse is over a weapon, if so, displays name, description and damage range
-    if ($(event.target).hasClass("robot-weapon")) {
-      tempString = `<h3>Weapon Type: ${$(event.target).html()}</h3>
-      <p>Description: ${robotData.weapons[$(event.target).attr("type-element")].weaponDescription}</p>
-      <p>Damage Range: ${robotData.weapons[$(event.target).attr("type-element")].lowDamage} to ${robotData.weapons[$(event.target).attr("type-element")].highDamage} points`;
+    if ($(sentEventTarget).hasClass("robot-weapon")) {
+      tempString = `<h3>Weapon Type: ${$(sentEventTarget).html()}</h3>
+      <p>Description: ${robotData.weapons[$(sentEventTarget).attr("type-element")].weaponDescription}</p>
+      <p>Damage Range: ${robotData.weapons[$(sentEventTarget).attr("type-element")].lowDamage} to ${robotData.weapons[$(sentEventTarget).attr("type-element")].highDamage} points`;
       $("#output-panel").html(tempString);
     }
 
     // Checks to see if the mouse is over a modification, if so, displays name, description and modifier stats
-    if ($(event.target).hasClass("robot-modification")) {
-      let currentMod = robotData.modifications[$(event.target).attr("type-element")];
-      tempString = `<h3>Modification Type: ${$(event.target).html()}</h3>
+    if ($(sentEventTarget).hasClass("robot-modification")) {
+      let currentMod = robotData.modifications[$(sentEventTarget).attr("type-element")];
+      tempString = `<h3>Modification Type: ${$(sentEventTarget).html()}</h3>
       <p>Description: ${currentMod.modDescription}</p>
-      <p>Protection: ${currentMod.modProtection}, Evasion: ${currentMod.modEvasion}, Damage: ${currentMod.modDamage}`;
+      <p>Stats Bonus -- Protection: ${currentMod.modProtection}%, Evasion: ${currentMod.modEvasion}%, Damage: ${currentMod.modDamage}%`;
       $("#output-panel").html(tempString);
     }
+  };
+
+  // Builds the battle page and starts the fight
+  buildDOM.buildBattleField = function() {
+    $("#battle-page").html(`
+      <h3>Welcome to the Battlefield!</h3>
+      <div id="player1-stats">Player 1 Stats</div>
+      <div id="player2-stats">Player 2 Stats</div>`
+      );
+
+    RobotWars.BattleCalculations.startTheFight();
+
   };
 
 // Adds objects (i.e. players) to the createdPlayer object for easy access

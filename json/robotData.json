@@ -91,14 +91,14 @@
       "modName": "Engine Mark-2",
       "modDescription": "State-of-art robot engine increases energy available to all robot systems at the cost of added size and weight.",
       "modDamage": 30,
-      "modProtection": -10,
-      "modEvasion": -20
+      "modProtection": 10,
+      "modEvasion": 5
     }, {
       "modId": "Armor",
       "modName": "Fibroblast Armor Plating",
       "modDescription": "An add-on to the standard titanium armor by adding an additional layer of interwoven metal polymer fabric at the cost of added weight.",
-      "modProtection": 15,
-      "modEvasion": -10,
+      "modProtection": 25,
+      "modEvasion": 5,
       "modDamage": 0
     }, {
       "modId": "EShield",
@@ -106,28 +106,28 @@
       "modDescription": "An electro-static energy shield which reduces the velocity of energy and projectile weapons. Drains energy available to the other robot systems.",
       "modProtection": 10,
       "modEvasion": 0,
-      "modDamage": -10
+      "modDamage": -20
     }, {
       "modId": "CFrame",
       "modName": "Carbon-Fiber Frame",
       "modDescription": "Replaces the standard tungsten-carbide robot frame with a lighter Carbon-Fiber frame at the cost durability.",
-      "modProtection": -10,
-      "modEvasion": 10,
+      "modProtection": 0,
+      "modEvasion": 20,
       "modDamage": -10
     }, {
       "modId": "AutoRepair",
       "modName": "Automated Repair System",
       "modDescription": "Nano-bot automated repair system heals the robot as it battles. Taxing on both the powerplant and CPU.",
-      "modProtection": 10,
-      "modEvasion": -10,
-      "modDamage": -10
+      "modProtection": 55,
+      "modEvasion": 5,
+      "modDamage": -25
     }, {
       "modId": "Nitrobooster",
       "modName": "Nitrobooster",
       "modDescription": "A steady flow Nitrous Oxide into the drivetrain gives unparaelled speed but has been known to cause robots to lose control",
       "modProtection": 0,
-      "modEvasion": 20,
-      "modDamage": -20
+      "modEvasion": 25,
+      "modDamage": -25
     }]
   }
 }

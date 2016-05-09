@@ -21,15 +21,29 @@ body {
   cursor: pointer;
 }
 
-#output-panel {
+#output-panel-container {
   display: block;
-  height: 20vh;
+  height: 25vh;
   width: 94vw;
-  margin-right: auto;
-  margin-left: auto;
   position: fixed;
   bottom: 5px;
   padding: 5px;
   left: 3vw;
+  border: 1px solid red;
+}
+
+h2 {
+  margin: 0 0 0 5vw;
+  padding: 0;
+  text-align: left;
+}
+
+#output-panel {
+  display: block;
+  height: 20vh;
+  width: 90vw;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid red;
 }

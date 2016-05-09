@@ -1,5 +1,9 @@
 "use strict";
 
+// This file holds all the Robot type and model constructor functions and prototype methods.
+//  All non-basic Robot types and model constructor functions are built dynamically from the json
+//  file. Additional Robot types and models can be added to game (by adding them to the json file)
+//  and no modification of the js files would be needed.
 var RobotWars = (function(originalRobot) {
 
 // This holds the available robots types that can be built

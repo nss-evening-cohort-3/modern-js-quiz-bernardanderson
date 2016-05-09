@@ -1,10 +1,10 @@
 "use strict";
 
-// This handles the XHR JSon (which holds all the robot type and sub-type stats,
+// This handles the XHR JSon (which holds all the robot type and model stats,
 //  modifications and weapon data pull.
 var RobotWars = (function(originalRobotJsonParse) {
 
-// A private variable which holds all the jsondata
+// A private variable which holds all the parsed json data
   let parsedRobotJsonData = {};
 
 // This is the main Promise method that loads the json data and builds the Robot Types, sub-models, weapons and modifications
@@ -17,13 +17,13 @@ var RobotWars = (function(originalRobotJsonParse) {
       // Builds each robot type and sub-model constructor function as found in the robotData.json file 
       RobotWars.loadAvailableRobots();
 
-      // Builds each weapon object as found in the robotData.json file 
+      // Builds each weapon constructor function as found in the robotData.json file 
       RobotWars.buildWeapons();
 
-      // Builds each modification object as found in the robotData.json file 
+      // Builds each modification constructor function as found in the robotData.json file 
       RobotWars.buildModifications();
 
-      // Builds the intial DOM view 
+      // Builds the intial DOM view for player creation
       RobotWars.buildInitialDOM();
 
       });
