@@ -6,14 +6,8 @@ body {
   text-align: center;
 }
 
-
 article {
-  margin-top: 10px;
-}
-
-
-p {
-  font-size: 0.9rem;
+  margin-top: 20px;
 }
 
 .main-display {
@@ -22,6 +16,11 @@ p {
 
 .hidden {
   display: none;
+}
+
+.button-title {
+  font-size: 1.35rem;
+  margin: 5px 5px 0 5px;
 }
 
 .button {
@@ -43,13 +42,8 @@ p {
   display: inline;
 }
 
-.button-title {
-  font-size: 1.35rem;
-  margin: 5px 5px 0 5px;
-}
-
 .selected {
-  font-size: 1.40rem;
+  /*font-size: 1.40rem;*/
   padding: 5px;
   background-color: orangered;
   border: 1px solid gray;
@@ -57,9 +51,6 @@ p {
 }
 
 #output-panel-container {
-  /*font-family: 'Orbitron', sans-serif;*/
-  /*font-family: 'Audiowide', cursive;*/
-  /*font-family: 'Russo One', sans-serif;*/
   display: block;
   position: fixed;
   border: 1px solid black;
@@ -74,6 +65,7 @@ p {
 
 #output-panel {
   display: block;
+  position: relative;
   background-color: lightgray;
   border: 1px solid black;
   border-radius: 10px;
@@ -90,3 +82,36 @@ p {
   padding: 0;
   text-align: left;
 }
+
+#stats-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.battle-stats {
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+.battle-report {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+p span {
+  color: red;
+}
+
+.player-container {
+  border: 1px solid black;
+  background-color: lightgray;
+  padding: 15px;
+  width: 33vw;
+}
+
+.player-creation {
+  font-size: 1.25em;
+}
+

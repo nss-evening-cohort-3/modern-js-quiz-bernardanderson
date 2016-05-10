@@ -14,7 +14,7 @@ var RobotWars = (function(battleFunctions) {
     // Assigns the attackers damage based on the calculated weapon damage and the attackers modification
     sentAttacker.weapon.damage = weaponDamage + weaponDamageModifier;
 
-    let outputString = `<p>${sentAttacker.playerName} attacks with ${sentAttacker.weapon.weaponName} for ${sentAttacker.weapon.damage} pts of damage!</p>`;
+    let outputString = `<p class="battle-report">${sentAttacker.playerName} attacks with ${sentAttacker.weapon.weaponName} for ${sentAttacker.weapon.damage} pts of damage!</p>`;
 
     return outputString;
   };
@@ -29,7 +29,7 @@ var RobotWars = (function(battleFunctions) {
     // Checks to see if the defending robot evaded the attack and, if not, calculates the how much damage is received
     //  and decreases that amount from the health
     if ( damageEvasionChance <= sentDefender.modification.modEvasion) {
-      return `<p>${sentDefender.playerName} evaded the attack!</p>`;
+      return `<p class="battle-report">${sentDefender.playerName} evaded the attack!</p>`;
     }
 
     // Calculates how much damage the defender receives based on its modification protection value
@@ -37,7 +37,7 @@ var RobotWars = (function(battleFunctions) {
 
     // Stores how much damage was blocked
     let armorBlockage = sentAttacker.weapon.damage - actualReceivedDamage;
-    let outputString = `<p>${sentDefender.playerName}'s armor blocked ${armorBlockage} pts of damage and received ${actualReceivedDamage} pts of damage!</p>`;
+    let outputString = `<p class="battle-report">${sentDefender.playerName}'s armor blocked ${armorBlockage} pts of damage and received ${actualReceivedDamage} pts of damage!</p>`;
 
     // Decreases the defenders health by the damage amount
     sentDefender.health = sentDefender.health - actualReceivedDamage;
@@ -50,7 +50,7 @@ var RobotWars = (function(battleFunctions) {
     // If the health of the defender is zero or less then report the winner and stop the fight
     if (sentDefender.health <= 0 ) {
       sentDefender.health = 0;
-      let outputString = `<p>${sentDefender.playerName} is broken! ${sentAttacker.playerName} is the winner!</p>`;
+      let outputString = `<p class="battle-report"><span>${sentDefender.playerName} is broken! ${sentAttacker.playerName} is the winner!</span></p>`;
       return outputString;
     }
 
@@ -96,7 +96,7 @@ var RobotWars = (function(battleFunctions) {
       hasPlayerDied = RobotWars.BattleCalculations.singleRound(RobotWars.getPlayers()[attacker], RobotWars.getPlayers()[defender]);
 
       // Updates the defenders health as the battle is occurring
-      $(`#player${defender}-health`).html(`Current Health: ${RobotWars.getPlayers()[defender].health}`);
+      $(`#player${defender}-health`).html(`<span>Current Health:</span> ${RobotWars.getPlayers()[defender].health}`);
 
 // If a player is dead then stop of the interval, otherwise, swap who is the attacker for the next round.
       if (hasPlayerDied === false) {

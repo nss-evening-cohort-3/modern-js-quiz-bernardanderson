@@ -32,7 +32,7 @@ var RobotWars = (function(buildDOM) {
 //// Adds the type, weapon and modification buttons to the DOM elements.
 //
 
-  // For the Robot Types
+// For the Robot Types
     // Gets the Robot Types info from the stored JSON object
     var robotTypes = RobotWars.getRobotData().robotTypes;
 
@@ -47,7 +47,7 @@ var RobotWars = (function(buildDOM) {
     // Outputs the robot type buttons to the appropriate section
     $("#robot-types").html(typeString);
 
-  // For the Robot Weapons
+// For the Robot Weapons
     // Gets the Robot Weapon info from the stored JSON object
     var robotWeapons = RobotWars.getRobotData().weapons;
 
@@ -62,7 +62,7 @@ var RobotWars = (function(buildDOM) {
     // Outputs the robot type buttons to the appropriate section
     $("#robot-weapons").html(weaponString);
 
-  // For the Robot Modifications
+// For the Robot Modifications
     // Gets the Robot Modification info from the stored JSON object
     var robotModifications = RobotWars.getRobotData().modifications;
 
@@ -131,7 +131,7 @@ var RobotWars = (function(buildDOM) {
     RobotWars.addPlayer(newPlayer);
 
     //Lets the 
-    $("#output-panel").html(`<h3>Player ${createdPlayers.length}, ${newPlayer.playerName}, created!</h3>`);
+    $("#output-panel").html(`<p class="player-creation">Player ${createdPlayers.length}, ${newPlayer.playerName}, created!</h3>`);
     // Checks to see if less than two players have been built, if so, lets you build another
     //  If not, then it hides the input panel.
     if (createdPlayers.length < 2) {
@@ -194,8 +194,8 @@ var RobotWars = (function(buildDOM) {
     // Checks to see if the mouse is over a robot type, if so, displays name, description and min health 
     if ($(sentEventTarget).hasClass("robot-type")) {
       tempString = `<h3>Robot Type: ${$(sentEventTarget).html()}</h3>
-      <p>Description: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].typeDescription}</p>
-      <p>Minimum Health: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].minHealth} pts</p>`;
+      <p class="player-creation">Description: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].typeDescription}</p>
+      <p class="player-creation">Minimum Health: ${robotData.robotTypes[$(sentEventTarget).attr("type-element")].minHealth} pts</p>`;
       $("#output-panel").html(tempString);
     }
 
@@ -207,16 +207,16 @@ var RobotWars = (function(buildDOM) {
       let currentModel = robotData.robotTypes[selectedTypeElement].model[$(sentEventTarget).attr("model-element")];
 
       tempString = `<h3>${selectedTypeName} Robot, sub-model: ${$(sentEventTarget).html()}</h3>
-      <p>Description: ${currentModel.modelDescription}</p>
-      <p>Maximum Health: ${currentModel.maxHealth}</p>`;
+      <p class="player-creation">Description: ${currentModel.modelDescription}</p>
+      <p class="player-creation">Maximum Health: ${currentModel.maxHealth}</p>`;
       $("#output-panel").html(tempString);
     }
 
     // Checks to see if the mouse is over a weapon, if so, displays name, description and damage range
     if ($(sentEventTarget).hasClass("robot-weapon")) {
       tempString = `<h3>Weapon Type: ${$(sentEventTarget).html()}</h3>
-      <p>Description: ${robotData.weapons[$(sentEventTarget).attr("type-element")].weaponDescription}</p>
-      <p>Damage Range: ${robotData.weapons[$(sentEventTarget).attr("type-element")].lowDamage} to ${robotData.weapons[$(sentEventTarget).attr("type-element")].highDamage} points`;
+      <p class="player-creation">Description: ${robotData.weapons[$(sentEventTarget).attr("type-element")].weaponDescription}</p>
+      <p class="player-creation">Damage Range: ${robotData.weapons[$(sentEventTarget).attr("type-element")].lowDamage} to ${robotData.weapons[$(sentEventTarget).attr("type-element")].highDamage} points`;
       $("#output-panel").html(tempString);
     }
 
@@ -224,29 +224,29 @@ var RobotWars = (function(buildDOM) {
     if ($(sentEventTarget).hasClass("robot-modification")) {
       let currentMod = robotData.modifications[$(sentEventTarget).attr("type-element")];
       tempString = `<h3>Modification Type: ${$(sentEventTarget).html()}</h3>
-      <p>Description: ${currentMod.modDescription}</p>
-      <p>Stats Bonus -- Protection: ${currentMod.modProtection}%, Evasion: ${currentMod.modEvasion}%, Damage: ${currentMod.modDamage}%`;
+      <p class="player-creation">Description: ${currentMod.modDescription}</p>
+      <p class="player-creation">Stats Bonus -- Protection: ${currentMod.modProtection}%, Evasion: ${currentMod.modEvasion}%, Damage: ${currentMod.modDamage}%`;
       $("#output-panel").html(tempString);
     }
   };
 
   // Builds the battle page and starts the fight
   buildDOM.buildBattleField = function() {
-    $("#battle-page").html(`
-      <h3>Welcome to the Robot Battlefield!</h3>
-      <div class="stats-left">
-        <p>Player 1: ${createdPlayers[0].playerName}</p>
-        <p>Robot Type/Model: ${createdPlayers[0].type}/${createdPlayers[0].modelName}</p>
-        <p id="player0-health">Current Health: ${createdPlayers[0].health}</p>
-        <p>Weapon: ${createdPlayers[0].weapon.weaponName}</p>
-        <p>Modification: ${createdPlayers[0].modification.modName}</p>
+    $("#stats-container").html(`
+
+      <div class="stats-left player-container">
+        <p class="battle-stats"><span>Player 1:</span> ${createdPlayers[0].playerName}</p>
+        <p class="battle-stats"><span>Robot Type/Model:</span> ${createdPlayers[0].type}/${createdPlayers[0].modelName}</p>
+        <p id="player0-health" class="battle-stats"><span>Current Health:</span> ${createdPlayers[0].health}</p>
+        <p class="battle-stats"><span>Weapon:</span> ${createdPlayers[0].weapon.weaponName}</p>
+        <p class="battle-stats"><span>Modification:</span> ${createdPlayers[0].modification.modName}</p>
       </div>
-      <div class="stats-right">
-        <p>Player 2: ${createdPlayers[1].playerName}</p>
-        <p>Robot Type/Model: ${createdPlayers[1].type}/${createdPlayers[1].modelName}</p>
-        <p id="player1-health">Current Health: ${createdPlayers[1].health}</p>
-        <p>Weapon: ${createdPlayers[1].weapon.weaponName}</p>
-        <p>Modification: ${createdPlayers[1].modification.modName}</p>
+      <div class="stats-right player-container">
+        <p class="battle-stats"><span>Player 2:</span> ${createdPlayers[1].playerName}</p>
+        <p class="battle-stats"><span>Robot Type/Model:</span> ${createdPlayers[1].type}/${createdPlayers[1].modelName}</p>
+        <p id="player1-health" class="battle-stats"><span>Current Health:</span> ${createdPlayers[1].health}</p>
+        <p class="battle-stats"><span>Weapon:</span> ${createdPlayers[1].weapon.weaponName}</p>
+        <p class="battle-stats"><span>Modification:</span> ${createdPlayers[1].modification.modName}</p>
       </div>`
       );
 
