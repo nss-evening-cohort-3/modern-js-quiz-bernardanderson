@@ -23,7 +23,7 @@ var RobotWars = ( (robotWeapons) => {
 // This for each loop prototypes each specific weapon contained within the base json file to the base Weapon property
 //  above. This allows the dynamic addtion/removal of weapons to the program where only the json file needs to be changed.
 // This builds the weapon objects from the JSON data
-//  Fat arrows (=>) mess with the scope of "this" and make this no act as a constructor function 
+//  Fat arrows (=>) mess with the scope of "this" and make this not act as a constructor function 
   robotWeapons.buildWeapons = function() {
 
     // Pulls the weapon data from the parsed JSON data
@@ -33,7 +33,7 @@ var RobotWars = ( (robotWeapons) => {
     $(weaponData).each( (index, weapon) => {
 
       // Creates a constructor function based on the current weapon name
-//  Fat arrows (=>) mess with the scope of "this" and make this no act as a constructor function 
+//  Fat arrows (=>) mess with the scope of "this" and make this not act as a constructor function 
       robotWeapons.WeaponList[weapon.weaponId] = function() {
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Weapon constructor function 

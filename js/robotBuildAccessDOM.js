@@ -173,7 +173,7 @@ var RobotWars = ( (buildDOM) => {
     if ($(sentEventTarget).hasClass("robot-modification")) {
       $(".robot-modification").removeClass("selected");
       $(sentEventTarget).addClass("selected");
-      $("#player-submit").removeClass("hidden").add;
+      $("#player-submit").removeClass("hidden");
     }
 
     // Checks to see if the submit button was pressed and calls the buildPlayer function

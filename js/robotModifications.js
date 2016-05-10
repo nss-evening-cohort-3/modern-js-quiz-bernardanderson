@@ -10,7 +10,7 @@ var RobotWars = ((robotModifications) => {
   robotModifications.ModificationsList = {};
 
   // Generic (aka none) modification with base settings
-  //  Fat arrows (=>) mess with the scope of "this" and make this no act as a constructor function 
+  //  Fat arrows (=>) mess with the scope of "this" and make this not act as a constructor function 
   robotModifications.ModificationsList.NoModification = function () {
     this.modId = "EmptyMod";
     this.modName = "None";
@@ -24,7 +24,7 @@ var RobotWars = ((robotModifications) => {
 // This for-each loop prototypes each specific modification contained within the base json file to the base Modification 
 //  property above. This allows the dynamic addtion/removal of modifications to the program where only the json file
 //  needs to be changed.  This builds the modification constructor functions from the JSON data.
-//  Fat arrows (=>) mess with the scope of "this" and make this no act as a constructor function 
+//  Fat arrows (=>) mess with the scope of "this" and make this not act as a constructor function 
   robotModifications.buildModifications = function() {
 
       // Pulls the modification data from the parsed JSON data
@@ -34,7 +34,7 @@ var RobotWars = ((robotModifications) => {
       $(modificationData).each( (index, modification) => {
 
         // Creates a constructor function based on the current modification name
-        //  Fat arrows (=>) mess with the scope of "this" and make this no act as a constructor function 
+        //  Fat arrows (=>) mess with the scope of "this" and make this not act as a constructor function 
         robotModifications.ModificationsList[modification.modId] = function() {
 
         // This adds the base properties from the Robot Types in the json object to the newly created prototyped Modification constructor function
