@@ -15,15 +15,15 @@ var RobotWars = (function(buildDOM) {
     $("#main-input-holder").html(`
         <section id="player-input">
           <article id="player-title-name-choice">
-            <p>Welcome Player ${currentPlayer+1}! Enter your name and choose your Robot Type</p>
-            <input id="robot-playerName"></input>
+            <h2>Welcome Player ${currentPlayer+1} / Enter your name and choose your Robot Type</h2>
+            <p class="button-title in-line">Enter your name: </p><input id="robot-playerName"></input>
           </article>
           <article id="robot-types"></article>
-          <article id="robot-models"></article>
-          <article id="robot-weapons" class="hidden"></article>
-          <article id="robot-modifications" class="hidden"></article>
-          <article id="player-submit" class="hidden">
-            <p id="main-submit" class="button">Submit Your Robot for Battle!</p>
+          <article id="robot-models" class="button-holder"></article>
+          <article id="robot-weapons" class="button-holder hidden"></article>
+          <article id="robot-modifications" class="button-holder hidden"></article>
+          <article id="player-submit" class="button-holder hidden">
+            <p id="main-submit" class="button submit-button">Submit Your Robot for Battle!</p>
           </article>
         </section>`
       );
@@ -37,7 +37,7 @@ var RobotWars = (function(buildDOM) {
     var robotTypes = RobotWars.getRobotData().robotTypes;
 
     // Temporary HTML string holder
-    var typeString = "";
+    var typeString = "<p class='button-title in-line'>Select your Robot Type</p>";
 
     // Loops through the robot types and builds their buttons
     for (var currentType in robotTypes) {
@@ -52,7 +52,7 @@ var RobotWars = (function(buildDOM) {
     var robotWeapons = RobotWars.getRobotData().weapons;
 
     // Temporary HTML string holder
-    var weaponString = "";
+    var weaponString = "<p class='button-title'>Select your Robot's Weapon</p>";
 
     // Loops through the robot weapons and builds their buttons
     for (var currentWeapon in robotWeapons) {
@@ -67,7 +67,7 @@ var RobotWars = (function(buildDOM) {
     var robotModifications = RobotWars.getRobotData().modifications;
 
     // Temporary HTML string holder
-    var modificationString = "";
+    var modificationString = "<p class='button-title'>Select your Robot's Modification</p>";
 
     // Loops through the robot weapons and builds their buttons
     for (var currentModification in robotModifications) {
@@ -86,7 +86,7 @@ var RobotWars = (function(buildDOM) {
     var robotModels = RobotWars.getRobotData().robotTypes[selectedElement].model;
 
     // Temporary HTML string holder
-    var modelString = "";
+    var modelString = "<p class='button-title in-line'>Select your Robot Model</p>";
 
     // Loops through the model data and build the HTML button
     for (var currentModel in robotModels) {
@@ -99,7 +99,14 @@ var RobotWars = (function(buildDOM) {
 
 // Builds the player from the selected elements on the DOM
   buildDOM.buildCompletePlayer = function() {
-    
+
+// When selecting the components, if a type is changed after the model is selected it resets the model.  This
+//  checks to make sure the user actually has all four robot properties selected when they try to generate a player 
+    if ($(".selected").length < 4) {
+      $("#output-panel").html("Please select a Robot Type, Model, Weapon and Modification");
+      return null;
+    }
+
     // Gets all the "selected" data from the DOM entries
     var newPlayerModel = $(".selected")[0].id;
     var newPlayerType = $(".selected")[1].id;
@@ -116,7 +123,8 @@ var RobotWars = (function(buildDOM) {
     if ($("#robot-playerName").val() !== "") {
       newPlayer.setPlayerName($("#robot-playerName").val());
     } else {
-      newPlayer.setPlayerName("No-Name Bubba");
+      var currentPlayer = createdPlayers.length;
+      newPlayer.setPlayerName(`"No-Name Player ${currentPlayer+1}"`);
     }
 
     // Adds the newly built player to a private variable for easy access 
@@ -165,7 +173,7 @@ var RobotWars = (function(buildDOM) {
     if ($(sentEventTarget).hasClass("robot-modification")) {
       $(".robot-modification").removeClass("selected");
       $(sentEventTarget).addClass("selected");
-      $("#player-submit").removeClass("hidden");
+      $("#player-submit").removeClass("hidden").add;
     }
 
     // Checks to see if the submit button was pressed and calls the buildPlayer function
@@ -225,9 +233,21 @@ var RobotWars = (function(buildDOM) {
   // Builds the battle page and starts the fight
   buildDOM.buildBattleField = function() {
     $("#battle-page").html(`
-      <h3>Welcome to the Battlefield!</h3>
-      <div id="player1-stats">Player 1 Stats</div>
-      <div id="player2-stats">Player 2 Stats</div>`
+      <h3>Welcome to the Robot Battlefield!</h3>
+      <div class="stats-left">
+        <p>Player 1: ${createdPlayers[0].playerName}</p>
+        <p>Robot Type/Model: ${createdPlayers[0].type}/${createdPlayers[0].modelName}</p>
+        <p id="player0-health">Current Health: ${createdPlayers[0].health}</p>
+        <p>Weapon: ${createdPlayers[0].weapon.weaponName}</p>
+        <p>Modification: ${createdPlayers[0].modification.modName}</p>
+      </div>
+      <div class="stats-right">
+        <p>Player 2: ${createdPlayers[1].playerName}</p>
+        <p>Robot Type/Model: ${createdPlayers[1].type}/${createdPlayers[1].modelName}</p>
+        <p id="player1-health">Current Health: ${createdPlayers[1].health}</p>
+        <p>Weapon: ${createdPlayers[1].weapon.weaponName}</p>
+        <p>Modification: ${createdPlayers[1].modification.modName}</p>
+      </div>`
       );
 
     RobotWars.BattleCalculations.startTheFight();

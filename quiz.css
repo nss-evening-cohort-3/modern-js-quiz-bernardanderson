@@ -2,12 +2,22 @@ body {
   box-sizing: border-box;
   /*display: flex;*/
   /*flex-flow: row || wrap;*/
+  font-family: 'Cuprum', sans-serif;
   text-align: center;
 }
 
-  .main-display {
-    display: block;
 
+article {
+  margin-top: 10px;
+}
+
+
+p {
+  font-size: 0.9rem;
+}
+
+.main-display {
+    display: block;
   }
 
 .hidden {
@@ -16,34 +26,67 @@ body {
 
 .button {
   display: inline-block;
-  margin-left: 5px;
-  margin-right: 5px;
   cursor: pointer;
+  font-size: 1.15rem;
+  background-color: gainsboro;
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px 5px 0 5px;
+}
+
+.submit-button {
+  background-color: limegreen;
+}
+
+.in-line {
+  display: inline;
+}
+
+.button-title {
+  font-size: 1.35rem;
+  margin: 5px 5px 0 5px;
+}
+
+.selected {
+  font-size: 1.40rem;
+  padding: 5px;
+  background-color: orangered;
+  border: 1px solid gray;
+  border-radius: 3px;
 }
 
 #output-panel-container {
+  /*font-family: 'Orbitron', sans-serif;*/
+  /*font-family: 'Audiowide', cursive;*/
+  /*font-family: 'Russo One', sans-serif;*/
   display: block;
+  position: fixed;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: gray;
   height: 25vh;
   width: 94vw;
-  position: fixed;
-  bottom: 5px;
   padding: 5px;
+  bottom: 5px;
   left: 3vw;
-  border: 1px solid red;
-}
-
-h2 {
-  margin: 0 0 0 5vw;
-  padding: 0;
-  text-align: left;
 }
 
 #output-panel {
   display: block;
-  height: 20vh;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 70%;
   width: 90vw;
   padding: 5px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid red;
+}
+
+.output-panel-text {
+  font-size: 1.25rem;
+  margin: 0 0 0 5vw;
+  padding: 0;
+  text-align: left;
 }

@@ -14,7 +14,7 @@ var RobotWars = (function(battleFunctions) {
     // Assigns the attackers damage based on the calculated weapon damage and the attackers modification
     sentAttacker.weapon.damage = weaponDamage + weaponDamageModifier;
 
-    let outputString = `<p>${sentAttacker.playerName} attacks with ${sentAttacker.weapon.weaponName} for ${sentAttacker.weapon.damage} damage!</p>`;
+    let outputString = `<p>${sentAttacker.playerName} attacks with ${sentAttacker.weapon.weaponName} for ${sentAttacker.weapon.damage} pts of damage!</p>`;
 
     return outputString;
   };
@@ -49,6 +49,7 @@ var RobotWars = (function(battleFunctions) {
 
     // If the health of the defender is zero or less then report the winner and stop the fight
     if (sentDefender.health <= 0 ) {
+      sentDefender.health = 0;
       let outputString = `<p>${sentDefender.playerName} is broken! ${sentAttacker.playerName} is the winner!</p>`;
       return outputString;
     }
@@ -91,7 +92,11 @@ var RobotWars = (function(battleFunctions) {
 // Sets the timed interval for the attacker-defender battle
     let fightActive = setInterval( function() {
 
+      // Runs a single round of the fight and reports whether someone died
       hasPlayerDied = RobotWars.BattleCalculations.singleRound(RobotWars.getPlayers()[attacker], RobotWars.getPlayers()[defender]);
+
+      // Updates the defenders health as the battle is occurring
+      $(`#player${defender}-health`).html(`Current Health: ${RobotWars.getPlayers()[defender].health}`);
 
 // If a player is dead then stop of the interval, otherwise, swap who is the attacker for the next round.
       if (hasPlayerDied === false) {
