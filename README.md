@@ -3,23 +3,24 @@
 
 ## Setup
 
-1. `cd` to your quizzes directory.
-1. Clone this repository and `cd` into the directory it creates.
-1. Now run the following commands.
+1. http-server must be installed via npm in order to properly run this application
 
-    ```bash
-    git checkout -b quiz
-    touch index.html
-    touch quiz.js
-    touch quiz.css
-    ```
+See ```https://www.npmjs.com/package/http-server``` for instructions 
 
-You are now ready to work in the `quiz` branch.
+## Key Coding Features present in this submission
 
-When your work in complete, push up the branch (`git push origin quiz`) and submit the pull request on Github.
+1. Json file which holds all Robot Type, Model, Weapon and Modification Parameters
+1. Ajax request to bring in the JSON data
+1. Use of a Promise to ensure JSON data is retrieved and parsed before any functions try to use it
+1. <em>Dynamically</em> built constructor functions for all non-base level Robot Type, Model, Weapon and Modifications (via the JSON data)
+1. <em>Dynamically</em> built buttons for the DOM for all Robot Type, Model, Weapon and Modifications (via the JSON data)
+1. Usage of prototypes (inheritance) for methods, properties
+1. Ultimate flexibility of JS code.  Addtional Robot Types, Models, Weapons and Modifications can be added/removed from the game and none of the JS code will need to be changed. Simply add them to the JSON file and the code will adapt. (CSS may need some tweaking...)
+1. Only a single global variable (RobotWar)
+1. ES6 syntax
 
 ## Instructions
-
+## The General Quiz Requirements are below
 ### Basic Requirements
 
 1. Use ES6 language features wherever you can. At a minimum, you should be using **let**, **const**, fat arrows, property shorthand, method properties, and string templates.
