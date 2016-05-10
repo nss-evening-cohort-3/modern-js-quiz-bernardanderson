@@ -2,14 +2,14 @@
 
 // This handles the XHR JSon (which holds all the robot type and model stats,
 //  modifications and weapon data pull.
-var RobotWars = (function(originalRobotJsonParse) {
+var RobotWars = ( (originalRobotJsonParse) => {
 
 // A private variable which holds all the parsed json data
   let parsedRobotJsonData = {};
 
 // This is the main Promise method that loads the json data and builds the Robot Types, sub-models, weapons and modifications
-  originalRobotJsonParse.MainLoadBuildPromise = function() {
-    originalRobotJsonParse.XHRLoad("robotData").then(function(dataFromJson) {
+  originalRobotJsonParse.MainLoadBuildPromise = () => {
+    originalRobotJsonParse.XHRLoad("robotData").then( (dataFromJson) => {
 
       // Adds the parsed Json data to the "parsedRobotJsonData" private variable 
       originalRobotJsonParse.setRobotData(dataFromJson.robotData);
@@ -30,27 +30,21 @@ var RobotWars = (function(originalRobotJsonParse) {
   };
 
 // This takes a json filename as an arguement, parses the data and resolves/rejects the promise.
-  originalRobotJsonParse.XHRLoad = function(jsonFileName) {
-    return new Promise(function(resolve, reject) {
+  originalRobotJsonParse.XHRLoad = (jsonFileName) => {
+    return new Promise( (resolve, reject) => {
       $.ajax({
       url: `json/${jsonFileName}.json`,
-      }).done( function(data) {
-        resolve(data);
-      }).fail(function(xhr, status, error) {
-        reject(error);
-      });
+      })
+      .done( (data) => resolve(data) )
+      .fail( (xhr, status, error) => reject(error) );
     });
   };
 
 // This allows setting of the private "parsedRobotJsonData" variable
-  originalRobotJsonParse.setRobotData = function(sentParsedObject) {
-    parsedRobotJsonData = sentParsedObject;
-  };
+  originalRobotJsonParse.setRobotData = (sentParsedObject) => parsedRobotJsonData = sentParsedObject;
 
 // This allows getting of the private "parsedRobotJsonData" variable
-  originalRobotJsonParse.getRobotData = function() {
-    return parsedRobotJsonData;
-  };
+  originalRobotJsonParse.getRobotData = () => parsedRobotJsonData;
 
   return originalRobotJsonParse;
 
