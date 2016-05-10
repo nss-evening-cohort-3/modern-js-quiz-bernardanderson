@@ -1,13 +1,13 @@
 "use strict";
 
 // This conains all the battle calculations that occur during the fight
-var RobotWars = (function(battleFunctions) {
+var RobotWars = ((battleFunctions) => {
 
   // Inits the BattleCalculations property
   battleFunctions.BattleCalculations = {};
 
   // Calculates the damage dealt by the attacker (includes damage modification increase/decreases)
-  battleFunctions.BattleCalculations.attackDamage = function(sentAttacker) {
+  battleFunctions.BattleCalculations.attackDamage = (sentAttacker) => {
     let weaponDamage = Math.round(Math.random() * (sentAttacker.weapon.highDamage - sentAttacker.weapon.lowDamage) + sentAttacker.weapon.lowDamage);
     let weaponDamageModifier = Math.round((weaponDamage * (sentAttacker.modification.modDamage/100)));
 
@@ -21,7 +21,7 @@ var RobotWars = (function(battleFunctions) {
 
   // Calculates the evasion chance of the defender or how much of the damage is absorbed by the defender
   //  Includes the protection modification values
-  battleFunctions.BattleCalculations.defenseCalculations = function(sentAttacker, sentDefender) {
+  battleFunctions.BattleCalculations.defenseCalculations = (sentAttacker, sentDefender) => {
 
     // Randomly gets a percentage to see if the rbot evaded the attack.
     let damageEvasionChance = Math.round(Math.random() * 100);
@@ -45,7 +45,7 @@ var RobotWars = (function(battleFunctions) {
   };
 
   // Checks to see if the current defenders health is 0 or below.  If so, then the attacker is declaired the winner
-  battleFunctions.BattleCalculations.checkHealth = function(sentAttacker, sentDefender) {
+  battleFunctions.BattleCalculations.checkHealth = (sentAttacker, sentDefender) => {
 
     // If the health of the defender is zero or less then report the winner and stop the fight
     if (sentDefender.health <= 0 ) {
@@ -59,7 +59,7 @@ var RobotWars = (function(battleFunctions) {
   };
 
   // The steps of a single battle round
-  battleFunctions.BattleCalculations.singleRound = function(attacker, defender) {
+  battleFunctions.BattleCalculations.singleRound = (attacker, defender) => {
 
     // Stores the attacker damage string
     let currentRoundOutput = RobotWars.BattleCalculations.attackDamage(attacker);
@@ -82,7 +82,7 @@ var RobotWars = (function(battleFunctions) {
   };
 
 // This starts the overall fight
-  battleFunctions.BattleCalculations.startTheFight = function() {
+  battleFunctions.BattleCalculations.startTheFight = () => {
 
     let attacker = 0;
     let defender = 1;
@@ -90,7 +90,7 @@ var RobotWars = (function(battleFunctions) {
     let hasPlayerDied = false;
 
 // Sets the timed interval for the attacker-defender battle
-    let fightActive = setInterval( function() {
+    let fightActive = setInterval( () => {
 
       // Runs a single round of the fight and reports whether someone died
       hasPlayerDied = RobotWars.BattleCalculations.singleRound(RobotWars.getPlayers()[attacker], RobotWars.getPlayers()[defender]);
