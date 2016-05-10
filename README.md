@@ -12,8 +12,8 @@ See ```https://www.npmjs.com/package/http-server``` for instructions
 1. Json file which holds all Robot Type, Model, Weapon and Modification Parameters
 1. Ajax request to bring in the JSON data
 1. Use of a Promise to ensure JSON data is retrieved and parsed before any functions try to use it
-1. <em>Dynamically</em> built constructor functions for all non-base level Robot Type, Model, Weapon and Modifications (via the JSON data)
-1. <em>Dynamically</em> built buttons for the DOM for all Robot Type, Model, Weapon and Modifications (via the JSON data)
+1. <strong>Dynamically</strong> built constructor functions for all non-base level Robot Type, Model, Weapon and Modifications (via the JSON data)
+1. <strong>Dynamically</strong> built buttons for the DOM for all Robot Type, Model, Weapon and Modifications (via the JSON data)
 1. Usage of prototypes (inheritance) for methods, properties
 1. Ultimate flexibility of JS code.  Addtional Robot Types, Models, Weapons and Modifications can be added/removed from the game and none of the JS code will need to be changed. Simply add them to the JSON file and the code will adapt. (CSS may need some tweaking...)
 1. Only a single global variable (RobotWar)
